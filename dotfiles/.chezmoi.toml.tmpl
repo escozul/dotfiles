@@ -4,9 +4,10 @@
 
 [data]
     email        = {{ $email | quote }}
-    github_user  = "natelandau"
+    github_user  = "escozul"
     home_network = {{ $home_network }}
     use_secrets  = {{ $use_secrets }}
+    scriptTempDir = "~/tmp"
 
 [diff]
     {{ if lookPath "delta" -}}command = "delta"{{ end }}
