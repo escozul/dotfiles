@@ -54,8 +54,35 @@ fi
 
 alias sourcea='source ${HOME}/.bashrc' # Source this file to apply changes
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 source ~/.local/share/blesh/ble.sh
+
+# Replacing this:
+if [ -f ~/.fzf.bash ]; then
+  source ~/.fzf.bash
+
+  # clear blesh completer for cd
+  blehook/eval-after-load complete 'unset -f ble/cmdinfo/complete:cd'
+
+  # patch fzf functions
+  ble/function#advice around __fzf_generic_path_completion _fzf_complete.advice
+  ble/function#advice around _fzf_complete                 _fzf_complete.advice
+  ble/function#advice around _fzf_complete_kill            _fzf_complete.advice
+  function _fzf_complete.advice {
+    [[ :$comp_type: == *:auto:* ]] && { compopt -o default; return; }
+    compopt -o noquote
+    COMP_WORDS=("${comp_words[@]}") COMP_CWORD=$comp_cword
+    COMP_LINE=$comp_line COMP_POINT=$comp_point
+    ble/function#push printf '[[ $1 == "\e[5n" ]] || builtin printf "$@"'
+    ble/function#advice/do < /dev/tty &> /dev/tty
+    ble/function#pop printf
+    ble/textarea#invalidate
+  }
+fi
+
+# instead of this to fix the conflict with ble.sh and fzf
+# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# source ~/.local/share/blesh/ble.sh
+
 # Launch atuin
 eval "$(atuin init bash)"
 # Launch fzf
