@@ -53,3 +53,10 @@ if [ -f "${HOME}/.dotfiles.local" ]; then
 fi
 
 alias sourcea='source ${HOME}/.bashrc' # Source this file to apply changes
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source ~/.local/share/blesh/ble.sh
+# Launch atuin
+eval "$(atuin init bash)"
+# Launch fzf
+eval "$(fzf --bash)"
