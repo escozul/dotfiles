@@ -25,9 +25,23 @@ su() {
     # su: Do sudo to a command, or do sudo to the last typed command if no argument given
     if [[ $# == 0 ]]; then
         sudo "$(history -p '!!')"
+    elif [[ $1 == "-" ]] #if you are trying to change to another user, then use the su command normally
+    then
+        command su "$@"
     else
         sudo "$@"
     fi
+}
+su () {
+        if [[ $# == 0 ]]
+        then
+                sudo "$(history -p '!!')"
+        elif [[ $1 == "-" ]]
+        then
+                command su "$@"
+        else
+                sudo "$@"
+        fi
 }
 
 sshlist() {
