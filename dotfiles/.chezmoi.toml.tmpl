@@ -4,12 +4,13 @@
 {{ $github_user := promptStringOnce . "github_user" "GitHub user" }}
 {{ $restricted_tmp := promptBoolOnce . "restricted_tmp" "Was restricted access to /tmp folder encountered? (true/false)" }}
 
+{{ if $restricted_tmp }}scriptTempDir = "~/tmp"{{ end }}
+
 [data]
     email        = {{ $email | quote }}
     github_user  = {{ $github_user | quote }}
     home_network = {{ $home_network }}
     use_secrets  = {{ $use_secrets }}
-    {{ if $restricted_tmp }}scriptTempDir = "~/tmp"{{ end }}
 
 [diff]
     {{ if lookPath "delta" -}}command = "delta"{{ end }}
