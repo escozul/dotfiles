@@ -19,7 +19,7 @@ Dotfiles, managed with [Chezmoi](https://www.chezmoi.io/).
 **Ensure required software is installed before proceeding.** There are many ways to install Chezmoi. Check the [official documentation](https://www.chezmoi.io/install/) for the most up-to-date instructions. To install chezmoi and these dotfiles in a single command run the following:
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply natelandau
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply escozul
 ```
 
 ## Daily Usage
@@ -28,7 +28,7 @@ After Chezmoi is installed, use the following commands.
 
 ```bash
 # Initialize chezmoi configuration and apply the dotfiles (first run)
-chezmoi init natelandau
+chezmoi init escozul
 
 # Check for common problems.
 chezmoi doctor
