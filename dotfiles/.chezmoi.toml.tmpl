@@ -1,12 +1,15 @@
 {{ $use_secrets := promptBoolOnce . "use_secrets" "Use secrets from 1Password? (true/false)" }}
 {{ $home_network := promptBoolOnce . "home_network" "Is this computer in the home network? (true/false)" }}
 {{- $email := promptStringOnce . "email" "Email address" -}}
+{{ $github_user := promptStringOnce . "github_user" "GitHub user" }}
+{{ $restricted_tmp := promptBoolOnce . "restricted_tmp" "Was restricted access to /tmp folder encountered? (true/false)" }}
 
 [data]
     email        = {{ $email | quote }}
-    github_user  = "escozul"
+    github_user  = {{ $github_user | quote }}
     home_network = {{ $home_network }}
     use_secrets  = {{ $use_secrets }}
+    {{ if $restricted_tmp }}scriptTempDir = "~/tmp"{{ end }}
 
 [diff]
     {{ if lookPath "delta" -}}command = "delta"{{ end }}
