@@ -24,5 +24,7 @@ export BAT_THEME="DarkNeon"
 # Colorized help output via bat
 if [[ -n ${ZSH_NAME} ]]; then
     alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-    bathelp() { "$@" -h 2>&1 | bat --language=help --style=plain; }
+    bathelp() {
+        "$@" -h 2>&1 | bat --style=plain --language=man
+    }
 fi
