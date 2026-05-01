@@ -16,7 +16,6 @@ if [[ -n ${ZSH_NAME} ]]; then
 
     # Commands where -h means human-readable, not help
     for cmd in du df ls free curl wc sort cut head tail numfmt; do
-        $cmd() { command $0 "$@"; }
+        eval "${cmd}() { command ${cmd} \"\$@\"; }"
     done
 fi
-
