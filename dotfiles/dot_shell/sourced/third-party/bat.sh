@@ -9,13 +9,20 @@ export BAT_THEME="DarkNeon"
 # fi
 
 # Colorized help output via bat
-if [[ -n ${ZSH_NAME} ]]; then
-    alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-    bathelp() { "$@" --help 2>&1 | bat --language=help --style=plain; }
+# Another solution that did not work... :( disabling it and keeping the last clean solution that does not intercept -h
+# if [[ -n ${ZSH_NAME} ]]; then
+#     alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+#     alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+#     bathelp() { "$@" --help 2>&1 | bat --language=help --style=plain; }
+# 
+#     # Commands where -h means human-readable, not help
+#     for cmd in du df ls free curl wc sort cut head tail numfmt; do
+#         eval "${cmd}() { command ${cmd} \"\$@\"; }"
+#     done
+# fi
 
-    # Commands where -h means human-readable, not help
-    for cmd in du df ls free curl wc sort cut head tail numfmt; do
-        eval "${cmd}() { command ${cmd} \"\$@\"; }"
-    done
+# Colorized help output via bat
+if [[ -n ${ZSH_NAME} ]]; then
+    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+    bathelp() { "$@" -h 2>&1 | bat --language=help --style=plain; }
 fi
