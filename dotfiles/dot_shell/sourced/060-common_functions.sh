@@ -32,17 +32,6 @@ su() {
         sudo "$@"
     fi
 }
-su () {
-        if [[ $# == 0 ]]
-        then
-                sudo "$(history -p '!!')"
-        elif [[ $1 == "-" ]]
-        then
-                command su "$@"
-        else
-                sudo "$@"
-        fi
-}
 
 sshlist() {
     # List all hosts defined in ssh config file
