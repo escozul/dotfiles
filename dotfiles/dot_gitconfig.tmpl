@@ -100,7 +100,7 @@
     autocorrect = 1
 
 [user]
-  name = Nathaniel Landau
+  name = Maria Avgeri
   email = {{ .email }}
 
 [github]
@@ -184,10 +184,16 @@
 # https://github.com/git-ecosystem/git-credential-manager
 [credential]
     helper =
+{{- if stat "/usr/local/share/gcm-core/git-credential-manager" }}
     helper = /usr/local/share/gcm-core/git-credential-manager
 {{- if ne .chezmoi.os "darwin" }}
     credentialStore = cache
     guiPrompt = false
+{{- end }}
+{{- else if eq .chezmoi.os "darwin" }}
+    helper = osxkeychain
+{{- else }}
+    helper = store
 {{- end }}
 [credential "https://dev.azure.com"]
     useHttpPath = true
