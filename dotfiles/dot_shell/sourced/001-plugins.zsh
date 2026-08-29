@@ -75,6 +75,12 @@ for repo in ${plugins[@]}; do
 done
 unset repo
 
+# zsh-hist ships its `hist` command as an autoload function in its functions/ dir, which
+# _pluginload_ adds to fpath above. Its own bootstrap can abort before registering the
+# autoload (a glob in the plugin fails under some option combinations), so register it
+# here explicitly. Harmless if the plugin already did it.
+autoload -Uz hist
+
 # Update ZSH Plugins
 function zshup () {
   local plugindir="${ZPLUGINDIR:-$HOME/.zsh/plugins}"
