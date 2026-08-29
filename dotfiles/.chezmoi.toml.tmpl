@@ -7,10 +7,11 @@
 {{ if $restricted_tmp }}scriptTempDir = "~/tmp"{{ end }}
 
 [data]
-    email        = {{ $email | quote }}
-    github_user  = {{ $github_user | quote }}
-    home_network = {{ $home_network }}
-    use_secrets  = {{ $use_secrets }}
+    email          = {{ $email | quote }}
+    github_user    = {{ $github_user | quote }}
+    home_network   = {{ $home_network }}
+    use_secrets    = {{ $use_secrets }}
+    restricted_tmp = {{ $restricted_tmp }}
 
 [diff]
     {{ if lookPath "delta" -}}command = "delta"{{ end }}
